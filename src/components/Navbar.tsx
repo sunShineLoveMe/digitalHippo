@@ -14,6 +14,9 @@ const Navbar = () => {
                                     <Icons.logo className="h-8 w-10" />
                                 </Link>
                             </div>
+                            <div className="hidden z-50 lg:ml-8 lg:block lg:self-stretch">
+                                
+                            </div>
                         </div>
                     </div>
                 </MaxWidthWrapper>
