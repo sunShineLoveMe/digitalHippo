@@ -7,6 +7,8 @@ dotenv.config({
     path: path.resolve(__dirname, '../.env') 
 });
 
+// 处理缓存机制。确保应用中多处需要使用 Payload 客户端时不会重复初始化，提高效率
+// 使用 Node.js 的 global 对象来存储缓存。
 let cached = (global as any).payload
 if(!cached) {
     cached = (global as any).payload = {
@@ -19,6 +21,10 @@ interface Args {
     initOptions?: Partial<InitOptions>
 }
 
+/**
+ * 负责初始化 Payload 客户端
+ * @return {Promise<Payload>}
+ */
 export const getPayloadClient = async ({
     initOptions,
 }: Args = {}) => {
@@ -31,6 +37,7 @@ export const getPayloadClient = async ({
     }
 
     if(!cached.promise) {
+        // payload 初始化赋值
         cached.promise = payload.init({
             secret: process.env.PAYLOAD_SECRET,
             local: initOptions?.express ? false : true,

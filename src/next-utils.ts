@@ -7,4 +7,6 @@ export const nextApp = next({
     port: PORT
 })
 
+// 获取next.js请求处理器，用于处理传入的http请求,
+// 并根据next.js应用的路由来响应这些请求。
 export const nextHandler = nextApp.getRequestHandler()
