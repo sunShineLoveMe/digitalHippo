@@ -10,7 +10,7 @@ const start = async () => {
         initOptions: { 
             express: app,
             onInit: async (cms) => {
-                cms.logger.info(`Admin URL ${cms.getAdminURL()}`)
+                // cms.logger.info(`Admin URL ${cms.getAdminURL()}`)
             }
         } 
     });
@@ -18,10 +18,10 @@ const start = async () => {
     app.use((req, res) => nextHandler(req, res))
 
     nextApp.prepare().then(() => {
-        payload.logger.info("next.js started")
-        
+        // payload.logger.info("next.js started")
+
         app.listen(PORT, async() => {
-            payload.logger.info(`Next.js App URL: ${process.env.NEXT_PUBLIC_APP_URL}`)
+            // payload.logger.info(`Next.js App URL: ${process.env.NEXT_PUBLIC_APP_URL}`)
         })
     })
 }
