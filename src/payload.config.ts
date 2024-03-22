@@ -3,7 +3,6 @@ import { webpackBundler } from "@payloadcms/bundler-webpack";
 import { mongooseAdapter } from "@payloadcms/db-mongodb";
 import { slateEditor } from "@payloadcms/richtext-slate";
 import path from "path";
-
 /**
  * 配置payload cms 内容管理系统
  */
