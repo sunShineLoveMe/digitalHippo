@@ -15,7 +15,11 @@ import {
 import { trpc } from "@/trpc/client"
 
 const Page = () => {
-
+    /**
+     * register 该函数允许绑定一个输入表单的input的属性以及绑定验证规则
+     * useForm 是一个用于管理表单的自定义钩子
+     * handleSubmit 如果表单验证成功，该函数将接受表单数据
+     */
     const { 
             register, 
             handleSubmit, 
