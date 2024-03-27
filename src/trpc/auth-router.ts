@@ -2,6 +2,7 @@ import { AuthCredentialsValidator } from "../lib/validators/account-credential-v
 import { publicProcedure, router } from "./trpc";
 import { getPayloadClient } from "../get-payload";
 import { TRPCError } from "@trpc/server";
+import { z } from "zod";
 
 /**
  * trpc库创建的路由函数
@@ -14,8 +15,7 @@ export const authRouter = router({
      * 如果不存在，调用payload对象的create方法，创建一个新用户，包含email, password, role属性。
      * 并返回一个包含success和sentToEmail属性的对象。
      */
-    createPayloadUser:
-         publicProcedure.input(AuthCredentialsValidator).mutation(async({input}) => {
+    createPayloadUser: publicProcedure.input(AuthCredentialsValidator).mutation(async({input}) => {
             const { email, password } = input
             const payload = await getPayloadClient()
 
@@ -42,5 +42,23 @@ export const authRouter = router({
                 },
             })
             return { success: true, sentToEmail: email }
+    }),
+
+    verifyEmail: publicProcedure.input(z.object({ token: z.string()})).query(async({input}) => {
+        const { token } = input
+
+        const payload = await getPayloadClient()
+
+        const isVerified = await payload.verifyEmail({
+            collection: 'users',
+            token
+        })
+
+        if(!isVerified) {
+            throw new TRPCError({ code: 'UNAUTHORIZED'})
+        }
+
+        return { success: true }
     })
+
 })
