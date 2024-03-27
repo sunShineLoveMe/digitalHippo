@@ -36,6 +36,12 @@ interface Args {
  * 负责初始化 Payload 客户端
  * @return {Promise<Payload>}
  */
+/**
+ * Retrieves the payload client asynchronously.
+ * @param {Args} [initOptions] - The initialization options for the payload client.
+ * @returns {Promise<Payload>} - A promise that resolves to the payload client.
+ * @throws {Error} - Throws an error if the payload secret is missing.
+ */
 export const getPayloadClient = async ({
     initOptions,
 }: Args = {}): Promise<Payload> => {
@@ -52,7 +58,7 @@ export const getPayloadClient = async ({
         cached.promise = payload.init({
             email: {
                 transport: transporter,
-                fromAddress: "juneqi9@gmail.com",
+                fromAddress: "Acme <onboarding@resend.dev>",
                 fromName: "DigitalHippo"
             },
             secret: process.env.PAYLOAD_SECRET,
