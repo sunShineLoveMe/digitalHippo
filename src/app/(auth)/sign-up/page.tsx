@@ -13,6 +13,8 @@ import {
         TAuthCredentialsValidator 
     } from "@/lib/validators/account-credential-validators"
 import { trpc } from "@/trpc/client"
+// sonner是一个用于显示通知的react库
+import { toast } from "sonner"
 
 const Page = () => {
     /**
@@ -29,7 +31,13 @@ const Page = () => {
     })
 
     // useMutation hook
-    const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({})
+    const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
+        onError: (err) => {
+            if(err.data?.code === 'CONFLICT') {
+                toast.error("This email is Already in use. Sign in instead?");
+            }
+        }
+    })
 
     const onSubmit = ({
         email, 

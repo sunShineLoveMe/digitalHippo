@@ -31,6 +31,8 @@ export default buildConfig({
     },
     editor: slateEditor({}),
     db: mongooseAdapter({
+        // 在ts中，！后缀是一个非空断言运算符。当你确定某个值肯定不是
+        // null/undefined，可以使用！
         url: process.env.MONGODB_URI!,
     }),
     typescript: {

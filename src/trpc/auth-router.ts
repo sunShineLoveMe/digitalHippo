@@ -20,7 +20,7 @@ export const authRouter = router({
             const payload = await getPayloadClient()
 
             // check if user already exists
-            const {docs: users} = await payload.find({
+            const { docs: users } = await payload.find({
                 collection: 'users',
                 where: {
                     email: {
